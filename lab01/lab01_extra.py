@@ -56,7 +56,7 @@ def both_positive(x, y):
     >>> both_positive(1, 1)
     True
     """
-    return x and y > 0 # You can replace this line!
+    return x > 0 and y > 0 # You can replace this line!
 
 # While Loops
 
@@ -72,14 +72,22 @@ def falling(n, k):
     >>> falling(4, 1)  # 4
     4
     """
-    "*** YOUR CODE HERE ***"
+    m = 1
+    if k == 0:
+        n = 1
+    else:
+        while k > 0:
+            m  = m * n 
+            k -= 1
+            n -= 1
+    return m
 
 # Guessing Game
 
 from random import randint
 
 LOWER = 1
-UPPER = 10
+UPPER = 100
 
 def guess_random():
     """Guess randomly and return the number of guesses."""
@@ -96,7 +104,11 @@ def guess_linear():
     prompt_for_number(LOWER, UPPER)
     num_guesses = 1
     guess = LOWER
-    "*** YOUR CODE HERE ***"
+    correct = False
+    while not correct:
+        correct = is_correct(guess)
+        guess += 1
+        num_guesses += 1
     return num_guesses
 
 def guess_binary():
@@ -111,7 +123,15 @@ def guess_binary():
     num_guesses = 1
     lower, upper = LOWER, UPPER
     guess = (lower + upper) // 2
-    "*** YOUR CODE HERE ***"
+    correct = False
+    while not correct:
+        if is_too_high(guess):
+            upper = guess - 1
+        else:
+            lower = guess + 1
+        guess = (lower + upper) // 2
+        num_guesses += 1
+        correct = is_correct(guess)
     return num_guesses
 
 # Receive user input. You do not need to understand the code below this line.
